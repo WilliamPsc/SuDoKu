@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Smart SuDoKu</string>
+    <string name="image">soduku.png</string>
+    <string name="builderTitle">Choix du numéro</string>
+    <string name="builderTitle2">Choix de la grille</string>
+
+    <string name="button">Jouer</string>
+    <string name="button2">A Propos</string>
+    <string name="button3">Valider</string>
+    <string name="button4">Retour</string>
+    <string name="button5">Choisir la grille</string>
+    <string name="button6">Paramètres</string>
+
+    <string name="textView">SuDoKu</string>
+    <string name="textView2">William PENSEC, étudiant Master 1 LSE</string>
+    <string name="textView3">Version : 1.5</string>
+    <string name="textView5"></string>
+    <string name="textView6">Grille numéro : -1</string>
+
+    <string name="activiteAbout">A Propos</string>
+    <string name="activiteJeu">Jeu</string>
+    <string name="activiteChoix">Choix du nombre</string>
+    <string name="activiteMain">SuDoKu</string>
+    <string name="activitePartie">Choix de la grille</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="sync_header">Données</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Supprimer les données de la grille</string>
+    <string name="sync_ON">OK</string>
+    <string name="sync_OFF">Non</string>
+</resources>
