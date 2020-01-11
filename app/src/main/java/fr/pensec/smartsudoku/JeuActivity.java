@@ -170,6 +170,7 @@ public class JeuActivity extends AppCompatActivity {
     }
 
     public void onBoutonClicked(View v){
+        valueRef = "---------------------------------------------------------------------------------";
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.builderTitle2);
 
@@ -202,7 +203,6 @@ public class JeuActivity extends AppCompatActivity {
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
-                //valueRef = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
                 winLose.setText("");
                 grille.setWon(null);
                 grille.invalidate();
