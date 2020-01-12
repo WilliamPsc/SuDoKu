@@ -20,7 +20,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void settings(View s){
-        Intent intent = new Intent(this, Settings.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 }

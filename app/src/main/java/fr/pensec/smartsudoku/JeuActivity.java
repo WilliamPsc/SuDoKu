@@ -8,9 +8,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -35,6 +37,7 @@ public class JeuActivity extends AppCompatActivity {
     URL url;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
+    Chronometer ch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +48,26 @@ public class JeuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jeu);
         getSupportActionBar().setTitle(R.string.activiteJeu);
 
+        ch = findViewById(R.id.chronometre);
         winLose = findViewById(R.id.textView5);
         nbGame = findViewById(R.id.textView6);
         this.intent = getIntent();
         this.grille = findViewById(R.id.grilleView);
+        Boolean chrono = false;
 
-        if (sharedPref.contains("sudoku") && sharedPref.contains("nbGrille")/* && sharedPref.contains("sudokuRef")*/){
+        if(sharedPref.contains("chrono")){
+            chrono = sharedPref.getBoolean("chrono", false);
+        }
+
+        if(chrono){
+            Log.i("chrono", "Chrono : " + chrono);
+            ch.setBase(SystemClock.elapsedRealtime());
+            ch.start();
+        }else{
+            ch.stop();
+        }
+
+        if (sharedPref.contains("sudoku") && sharedPref.contains("nbGrille")){
             valueRef = sharedPref.getString("sudokuRef", null);
             value = sharedPref.getString("sudoku", null);
             valueGrille = sharedPref.getInt("nbGrille", 30);
@@ -64,7 +81,6 @@ public class JeuActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    //Log.i("valeurOnCreate2 ", "TOUCHE = " + (int) event.getX() + " " + (int) event.getY());
                     x = (int) event.getX();
                     y = (int) event.getY();
 
@@ -97,9 +113,7 @@ public class JeuActivity extends AppCompatActivity {
         Log.i("valeurStrCmp", "Chaine loaded : " + s2 + " | Chaine loadedRef : " + s1);
         for(int i = 0; i < s2.length(); i++) {
             if(s1.charAt(i) == s2.charAt(i)){
-                //Log.i("valeurStrCmp", "s1[i] : " + s1.charAt(i) + " | s2[i] : " + s2.charAt(i));
                 res[i] = '-';
-                //Log.i("valeurStrCmp", "Chaine modifiée : " + res[i] + " | indice : " + i);
             }
         }
         String resS = new String(res);
@@ -152,6 +166,7 @@ public class JeuActivity extends AppCompatActivity {
         editor.putString("sudoku", value);
         editor.putInt("nbGrille", valueGrille);
         editor.putString("sudokuRef", valueRef);
+        editor.putBoolean("chrono", false);
         editor.commit();
         Log.i("valeurOnSave", "Chaine saved : " + value + " | nbGrille : " + valueGrille + " | Chaine savedRef : " + valueRef);
     }
@@ -260,8 +275,10 @@ public class JeuActivity extends AppCompatActivity {
 
         if(win) {
             winLose.setText("GAGNÉ !");
+            ch.stop();
         } else{
             winLose.setText("PERDU !");
+            ch.stop();
         }
     }
 

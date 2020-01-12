@@ -13,22 +13,28 @@
 
     <string name="textView">SuDoKu</string>
     <string name="textView2">William PENSEC, étudiant Master 1 LSE</string>
-    <string name="textView3">Version : 1.5</string>
+    <string name="textView3">Version : 2.0</string>
     <string name="textView5"></string>
     <string name="textView6">Grille numéro : -1</string>
+
+    <string name="textView12">Vous pouvez paramétrer le jeu dans la page paramètres. Vous pouvez supprimer les données enregistrées et activé ou pas un chronomètre.</string>
 
     <string name="activiteAbout">A Propos</string>
     <string name="activiteJeu">Jeu</string>
     <string name="activiteChoix">Choix du nombre</string>
     <string name="activiteMain">SuDoKu</string>
     <string name="activitePartie">Choix de la grille</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="activitySettings">Paramètres</string>
 
     <!-- Preference Titles -->
     <string name="sync_header">Données</string>
+    <string name="theme_header">Divers</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Supprimer les données de la grille</string>
-    <string name="sync_ON">OK</string>
-    <string name="sync_OFF">Non</string>
+    <string name="sync_title">Supprimer les données : </string>
+
+    <!-- Thème Choisi -->
+    <string name="theme_title">Chronomètre : </string>
+    <string name="chronometre">00:00:00</string>
+
 </resources>
