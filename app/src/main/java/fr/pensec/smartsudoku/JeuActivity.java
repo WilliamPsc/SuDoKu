@@ -1,8 +1,11 @@
 package fr.pensec.smartsudoku;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -135,7 +138,11 @@ public class JeuActivity extends AppCompatActivity {
         winLose.setText("");
         grille.setWon(null);
         grille.invalidate();
-        new recupererGrille().execute(url);
+        if(haveInternetConnection()) {
+            new recupererGrille().execute(url);
+        }else{
+            nbGame.setText("CONNEXION NON TROUVÉE");
+        }
     }
 
     @Override
@@ -206,7 +213,11 @@ public class JeuActivity extends AppCompatActivity {
                 winLose.setText("");
                 grille.setWon(null);
                 grille.invalidate();
-                new recupererGrille().execute(url);
+                if(haveInternetConnection()) {
+                    new recupererGrille().execute(url);
+                }else{
+                    nbGame.setText("CONNEXION NON TROUVÉE");
+                }
             }
         });
         AlertDialog dialog = builder.create();
@@ -252,6 +263,16 @@ public class JeuActivity extends AppCompatActivity {
         } else{
             winLose.setText("PERDU !");
         }
+    }
+
+    private boolean haveInternetConnection(){
+        NetworkInfo network = ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        if (network==null || !network.isConnected()) {
+            // Le périphérique n'est pas connecté à Internet
+            return false;
+        }
+        // Le périphérique est connecté à Internet
+        return true;
     }
 
 }
