@@ -32,6 +32,7 @@
 
     <!-- Sync Preferences -->
     <string name="sync_title">Supprimer les données : </string>
+    <string name="button7">SUPPRIMER</string>
 
     <!-- Thème Choisi -->
     <string name="theme_title">Chronomètre : </string>

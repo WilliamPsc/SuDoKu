@@ -67,19 +67,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.26" />
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="0dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="5dp"
-        android:onClick="supprData"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.403"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="1dp"
@@ -90,18 +77,21 @@
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="203dp"
+        android:layout_width="191dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:text="@string/sync_title"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:textColor="#0000FF"
+        android:textDirection="anyRtl"
+        android:textIsSelectable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.114" />
 
     <TextView
         android:id="@+id/textView8"
@@ -183,11 +173,23 @@
         android:id="@+id/textView11"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
         android:layout_marginBottom="23dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="47dp"
+        android:onClick="supprData"
+        android:text="@string/button7"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/divider3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
