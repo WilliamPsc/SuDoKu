@@ -1,3 +1,8 @@
+/**
+ * @author William PENSEC
+ * @date 12/01/2020
+ * @version 1.0
+ **/
 package fr.pensec.smartsudoku;
 
 import android.content.Context;
@@ -55,18 +60,19 @@ public class JeuActivity extends AppCompatActivity {
         this.grille = findViewById(R.id.grilleView);
         Boolean chrono = false;
 
+
+        // Gestion du chronomètre
         if(sharedPref.contains("chrono")){
             chrono = sharedPref.getBoolean("chrono", false);
         }
-
         if(chrono){
-            Log.i("chrono", "Chrono : " + chrono);
             ch.setBase(SystemClock.elapsedRealtime());
             ch.start();
         }else{
             ch.stop();
         }
 
+        // Chargement des valeurs sauvegardées de l'application
         if (sharedPref.contains("sudoku") && sharedPref.contains("nbGrille")){
             valueRef = sharedPref.getString("sudokuRef", null);
             value = sharedPref.getString("sudoku", null);
@@ -77,6 +83,8 @@ public class JeuActivity extends AppCompatActivity {
             grille.set(value);
             Log.i("valeurOnCreate1", "Chaine loaded : " + value + " | nbGrille : " + valueGrille + " | Chaine loadedRef : " + valueRef);
         }
+
+        // Permet d'afficher la valeur sur la grille
         this.grille.setOnTouchListener(new Grille.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -97,6 +105,12 @@ public class JeuActivity extends AppCompatActivity {
             });
     }
 
+    /**
+     * @description Cette fonction permet de différencier la grille de base (référente) à la grille modifiée. La fonction supprime les caractères identiques en les remplaçant par un "-".
+     * @param s1
+     * @param s2
+     * @return Une chaîne de caractère contenant soit des chiffres soit des tirets soit un mixte afin d'être traitée par la suite par une autre fonction
+     */
     public static String strCmp(String s1, String s2){
         if(s1 == null)
             return "---------------------------------------------------------------------------------";
@@ -120,6 +134,14 @@ public class JeuActivity extends AppCompatActivity {
         return resS;
     }
 
+    /**
+     * @description Permet de charger au lancement la grille précédemment chargée.
+     *  La fonction prend en paramètre un entier correspondant au numéro de la grille sauvegardée.
+     *  Il concatène ce numéro avec une URL et appelle la classe recupererGrille qui fait la requête de chargement
+     *
+     *
+     * @param which
+     */
     public void setValue(Integer which){
         if(which == 31){
             // Choix d'une grille aléatoire
@@ -136,7 +158,6 @@ public class JeuActivity extends AppCompatActivity {
             winLose.setText("");
             grille.setWon(null);
             grille.invalidate();
-            Log.i("valeurSetValue", "Hello why i'm here?");
             return;
         } else{
             nbGame.setText("Grille numéro : " + which);
@@ -159,6 +180,10 @@ public class JeuActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @description Permet de stocker l'état de la grille lorsque l'utilisateur quitte la partie/application
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -171,6 +196,11 @@ public class JeuActivity extends AppCompatActivity {
         Log.i("valeurOnSave", "Chaine saved : " + value + " | nbGrille : " + valueGrille + " | Chaine savedRef : " + valueRef);
     }
 
+    /**
+     * @description Affiche la liste des nombres (entre 0 et 9) afin que l'utilisateur puisse en choisir un et l'inscrire dans la grille
+     * @param valeurX
+     * @param valeurY
+     */
     protected void onGrilleClicked(int valeurX, int valeurY){
         this.x = this.grille.getXFromMatrix(valeurX);
         this.y = this.grille.getYFromMatrix(valeurY);
@@ -191,6 +221,11 @@ public class JeuActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @description Charge la grille souhaitée en appellant la classe asynchrone recupererGrille
+     * Elle fonctionne quasiment de la même façon que la fonction setValue(Integer)
+     * @param v
+     */
     public void onBoutonClicked(View v){
         valueRef = "---------------------------------------------------------------------------------";
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -201,7 +236,7 @@ public class JeuActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 31) {
                     // Choix d'une grille aléatoire
-                    int nombreAleatoire = 0 + (int) (Math.random() * ((29) + 1));
+                    int nombreAleatoire = (int) (Math.random() * ((29) + 1));
                     valueGrille = nombreAleatoire;
                     nbGame.setText("Grille numéro : " + nombreAleatoire);
                     nbGrille = "http://labsticc.univ-brest.fr/~bounceur/cours/android/tps/sudoku/index.php?v=" + nombreAleatoire;
@@ -239,6 +274,9 @@ public class JeuActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * @description Classe interne permettant de gérer de façon asynchrone la connexion à internet afin de faire appel à la grille.
+     */
     public class recupererGrille extends AsyncTask<URL, Integer, String> {
         protected String doInBackground(URL... urls) {
             String inputLine = "";
@@ -268,6 +306,10 @@ public class JeuActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @description Permet de vérifier si l'utilisateur a gagné ou perdu et d'afficher des valeurs selon le cas
+     * @param v
+     */
     public void onValiderClicked(View v){
         boolean win = this.grille.gagne();
         this.grille.setWon(win);
@@ -282,6 +324,10 @@ public class JeuActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @description Permet de
+     * @return true si la connexion est OK / false si il n'y a pas de connexion
+     */
     private boolean haveInternetConnection(){
         NetworkInfo network = ((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
         if (network==null || !network.isConnected()) {
@@ -291,5 +337,4 @@ public class JeuActivity extends AppCompatActivity {
         // Le périphérique est connecté à Internet
         return true;
     }
-
 }

@@ -1,8 +1,13 @@
+/**
+ * @author William PENSEC
+ * @date 12/01/2020
+ * @version 1.0
+ **/
+
 package fr.pensec.smartsudoku;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -15,9 +20,15 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     Switch sp2;
     Button sp;
-    Boolean stateSP2;
     TextView tv11;
+    Boolean chrono;
 
+    /**
+     * @description Permet d'afficher les différents éléments présents sur le layout
+     * et de vérifier les valeurs des composants afin d'afficher différentes
+     * valeurs en fonction
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,20 +41,26 @@ public class SettingsActivity extends AppCompatActivity {
         sharedPref = this.getSharedPreferences("grille", MODE_PRIVATE);
         editor = sharedPref.edit();
 
-
-        stateSP2 = sp2.isChecked();
-        if(stateSP2){
-            sp2.setText("Activé");
-            editor.putBoolean("chrono", true);
-        }else{
-            sp2.setText("Non Actif");
-            editor.putBoolean("chrono", false);
+        // On gère la valeur texte du switch selon ce qui est enregistré dans le fichier de sauvegarde.
+        if(sharedPref.contains("chrono")){
+            chrono = sharedPref.getBoolean("chrono", false);
+            if(chrono){
+                sp2.setText("Activé");
+                sp2.setChecked(true);
+            }else{
+                sp2.setText("Non Actif");
+                sp2.setChecked(false);
+            }
+            editor.commit();
         }
-        editor.commit();
-
     }
 
+    /**
+     * @description Permet de supprimer les données sauvegardées par l'application
+     * @param v
+     */
     public void supprData(View v){
+        /*// DEBUG
         String s1, s3;
         Integer s2;
 
@@ -53,6 +70,8 @@ public class SettingsActivity extends AppCompatActivity {
         Log.i("supprData", "Sudoku : " + s1);
         Log.i("supprData", "Numéro Grille :" + s2);
         Log.i("supprData", "SudokuRef : " + s3);
+        // FIN DEBUG
+        */
 
         editor.putString("sudoku", null);
         editor.putInt("nbGrille", 30);
@@ -62,9 +81,13 @@ public class SettingsActivity extends AppCompatActivity {
         tv11.setText("Données supprimées");
     }
 
+    /**
+     * @description Permet d'activer ou désactiver le chronomètre dans le jeu
+     * @param v
+     */
     public void activChrono(View v){
-        stateSP2 = sp2.isChecked();
-        if(stateSP2){
+        chrono = sp2.isChecked();
+        if(chrono){
             sp2.setText("Activé");
             editor.putBoolean("chrono", true);
         }else{
@@ -74,6 +97,10 @@ public class SettingsActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    /**
+     * @description Retour à l'activité AboutActivity
+     * @param v
+     */
     public void retourS(View v){
         finish();
     }

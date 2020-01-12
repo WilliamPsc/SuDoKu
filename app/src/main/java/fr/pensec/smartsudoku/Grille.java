@@ -1,3 +1,8 @@
+/**
+ * @author William PENSEC
+ * @date 12/01/2020
+ * @version 1.0
+ **/
 package fr.pensec.smartsudoku;
 
 import android.content.Context;
@@ -7,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 public class Grille extends View {
@@ -57,14 +61,15 @@ public class Grille extends View {
         init();
     }
 
+    /**
+     * @description Initialise la grille de départ et la dessine
+     */
     private void init() {
-
-
         // Grille de depart
         set("000105000140000670080002400063070010900000003010090520007200080026000035000409000");
 
         // Grille gagnante
-        //set("002145398145983672389762451263574819958621743714398526597236184426817935831459267");
+        //set("672145398145983672389762451263574819958621743714398526597236184426817935831459267");
 
         // Grille vide
         //set("000000000000000000000000000000000000000000000000000000000000000000000000000000000");
@@ -94,6 +99,11 @@ public class Grille extends View {
         paint5.setStrokeWidth(15f);
     }
 
+
+    /**
+     * @description Dessine la grille et la remplie avec les chiffres
+     * @param canvas
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         this.screenWidth = getWidth();
@@ -151,6 +161,10 @@ public class Grille extends View {
         return (y / n);
     }
 
+    /**
+     * @description Appelle la fonction setSV(String, Integer) afin de stocker une valeur non fixe
+     * @param s
+     */
     public void setV(String s){
         // Remplir la matrice matrix a partir d'un vecteur String s
         for (int i = 0; i < 9; i++) {
@@ -159,6 +173,11 @@ public class Grille extends View {
         }
     }
 
+    /**
+     * @description Permet de stocker la valeur de la chaîne sauvegardée en inscrivant que ce n'est pas une valeur fixe.
+     * @param s
+     * @param i
+     */
     public void setSV(String s, Integer i) {
         // Remplir la ieme ligne de la matrice matrix avec un vecteur String s
         int v;
@@ -166,13 +185,17 @@ public class Grille extends View {
             v = s.charAt(j) - '0';
             if(s.charAt(j) != '-'){
                 matrix[i][j] = v;
-                //Log.i("setSV", "Valeur[" + i + "]" + "[" + j + "] : " + v);
                 fixIdx[i][j] = false;
             }
         }
         this.invalidate();
     }
 
+    /**
+     * @description Fonction appellée par la fonction set(String). Elle permet de stocker la valeur et de l'afficher en redessinant la grille
+     * @param s
+     * @param i
+     */
     public void set(String s, int i) {
         // Remplir la ieme ligne de la matrice matrix avec un vecteur String s
         int v;
@@ -187,6 +210,10 @@ public class Grille extends View {
         this.invalidate();
     }
 
+    /**
+     * @description Rempli la matrice de grille avec les valeurs de la chaîne de la grille chargée
+     * @param s
+     */
     public void set(String s) {
         // Remplir la matrice matrix a partir d'un vecteur String s
         for (int i = 0; i < 9; i++) {
@@ -195,6 +222,12 @@ public class Grille extends View {
         }
     }
 
+    /**
+     * @description Inscrit dans la matrice la valeur de la case. Sert à inscrire la valeur quand l'utilisateur modifie une case
+     * @param x
+     * @param y
+     * @param v
+     */
     public void set(int x, int y, int v) {
         // Affecter la valeur v a la case (y, x)
         // y : ligne
@@ -205,11 +238,21 @@ public class Grille extends View {
         this.invalidate();
     }
 
+    /**
+     * @description Vérifie si la case est fixée ou pas. C'est à dire, si la case est une case modifiée par l'utilisateur ou pas.
+     * @param x
+     * @param y
+     * @return Si la valeur de la case est fixe ou non
+     */
     public boolean isNotFix(int x, int y) {
         // Renvoie si la case (y, x) n'est pas fixe
         return !this.fixIdx[y][x];
     }
 
+    /**
+     * @description Vérifie si le joueur a gagné ou pas selon le contenu de chaque grille
+     * @return La valeur si le joueur a gagné ou pas selon le contenu de la grille
+     */
     public boolean gagne() {
         // Verifier si la case n'est pas vide ou bien s'il existe
         for (int i = 0; i < 9; i++) {
@@ -236,6 +279,10 @@ public class Grille extends View {
         return true;
     }
 
+    /**
+     * @description Fonction toString qui convertit la grille en une chaine de caractère afin de la sauvegardé
+     * @return La chaine de caractère contenant la grille en cours
+     */
     public String toString(){
         String res = "";
         for(int i = 0; i < 9; i++){
@@ -247,11 +294,12 @@ public class Grille extends View {
     }
 
 
+    /**
+     * @description Met à jour le booléen "won" qui sauvegarde si le joueur a gagné ou pas.
+     * @param val
+     */
     public void setWon(Boolean val){
         this.won = val;
     }
 
-    public Boolean getWon() {
-        return won;
-    }
 }

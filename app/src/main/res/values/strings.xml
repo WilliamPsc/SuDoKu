@@ -1,3 +1,11 @@
+<!--
+/**
+ * @author William PENSEC
+ * @date 12/01/2020
+ * @version 1.0
+ **/
+
+-->
 <resources>
     <string name="app_name">Smart SuDoKu</string>
     <string name="image">soduku.png</string>
@@ -13,7 +21,7 @@
 
     <string name="textView">SuDoKu</string>
     <string name="textView2">William PENSEC, étudiant Master 1 LSE</string>
-    <string name="textView3">Version : 2.0</string>
+    <string name="textView3">Version : 1.0</string>
     <string name="textView5"></string>
     <string name="textView6">Grille numéro : -1</string>
 

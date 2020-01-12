@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * @author William PENSEC
+ * @date 12/01/2020
+ * @version 1.0
+ **/
+
+-->
 <resources>
+    <!-- Numéro dans la grille -->
     <string-array name="numbers">
         <item>0</item>
         <item>1</item>
@@ -13,6 +22,7 @@
         <item>9</item>
     </string-array>
 
+    <!-- Numéro de la grille à télécharger -->
     <string-array name="choixSudoku">
         <item>0</item>
         <item>1</item>

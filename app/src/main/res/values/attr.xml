@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * @author William PENSEC
+ * @date 12/01/2020
+ * @version 1.0
+ **/
+
+-->
 <resources>
+    <!-- Ajout d'un attribut personnalisé -->
     <declare-styleable name="Grille">
         <attr name="tailleCase" format="integer" />
     </declare-styleable>

@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * @author William PENSEC
+ * @date 12/01/2020
+ * @version 1.0
+ **/
+
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.pensec.smartsudoku">
 
@@ -13,10 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SettingsActivity"></activity>
         <activity
-            android:name=".ChoixActivity"
-            android:screenOrientation="portrait" />
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AboutActivity"
             android:screenOrientation="portrait" />
